@@ -27,9 +27,54 @@ solution 함수의 매개변수로
 #include <queue>
 using namespace std;
 
+void CheckCrossingBridge(int bdlength, int &OnWeight, queue<int>&que)
+{
+    if(que.size() == bdlength)
+    {
+        OnWeight -= que.front();
+        que.pop();
+    }
+}
+
+int solution(int bridge_length, int weight, vector<int> truck_weights) {
+    int answer = 0;
+    int OnbridgeWeight = 0;
+    int loop = 0;
+    queue<int>q;
+
+    while(true)
+    {
+        if(loop == truck_weights.size())
+        {
+            answer += bridge_length;
+            break;
+        }
+
+        CheckCrossingBridge(bridge_length, OnbridgeWeight, q);
+
+        answer++;
+
+        if(OnbridgeWeight + truck_weights[loop] <= weight)
+        {
+            OnbridgeWeight += truck_weights[loop];
+            q.push(truck_weights[loop]);
+            loop++;
+        }
+        else
+        {
+            q.push(0);
+        }
+    }
+
+    return answer;
+}
+
+/* 수식으로 못품.
 int solution(int bridge_length, int weight, vector<int> truck_weights) {
     int answer = 0;
     int Onbridgeweight=0;
+    int truckcnt = 0;
+    int tottruckcnt = 0;
     bool bcheck = false;
     queue<int>q;
 
@@ -38,18 +83,17 @@ int solution(int bridge_length, int weight, vector<int> truck_weights) {
        q.push(truck_weights[i]);
     }
 
-    while(!q.empty())
+    while(true)
     {
-        if(Onbridgeweight + q.front() < weight)
+        if((!q.empty() && (Onbridgeweight + q.front() < weight)) || bcheck)
         {
+            truckcnt++;
+            tottruckcnt++;
+            bcheck = false;
             Onbridgeweight += q.front();
             q.pop();
-            if(bcheck)
-            {
-                answer += 1;
-                bcheck = false;
-            }
-            
+            if(q.empty()) continue;
+
             if(Onbridgeweight + q.front()<= weight)
             {
                 bcheck = true;
@@ -57,14 +101,34 @@ int solution(int bridge_length, int weight, vector<int> truck_weights) {
         }
         else
         {
+            if(truckcnt >= 2)
+            {
+                answer += bridge_length + truckcnt;
+            }
+            else
+            {
+                answer += bridge_length;
+            }
+            bcheck = false;
+            truckcnt = 0;
             Onbridgeweight = 0;
-            answer += bridge_length;
+            if(q.empty())
+            {
+                if(tottruckcnt == 1)
+                {
+                    answer++;
+                }
+                break;
+            } 
         }
     }
-    //answer += bridge_length + 1;
+   
+    
 
     return answer;
 }
+*/
+
 
 int main()
 {
