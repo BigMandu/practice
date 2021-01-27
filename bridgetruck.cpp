@@ -1,5 +1,7 @@
 /*
 
+https://programmers.co.kr/learn/courses/30/lessons/42583
+
 bridge_length = 2, weight = 10 , [7 4 5 6]
 
 경과 시간	다리를 지난 트럭	다리를 건너는 트럭	대기 트럭
@@ -62,14 +64,16 @@ int solution(int bridge_length, int weight, vector<int> truck_weights) {
         }
         else
         {
-            q.push(0);
+            q.push(0); //0을 푸시함으로 트럭을 다리끝까지 보낸다.
         }
     }
 
     return answer;
 }
 
-/* 수식으로 못품.
+/* 
+ 트럭이 한대내려갔으면 바로 다음트럭을 올릴 수 있는지 판단 해야 하기 때문에. 수식으로 못품.
+
 int solution(int bridge_length, int weight, vector<int> truck_weights) {
     int answer = 0;
     int Onbridgeweight=0;
