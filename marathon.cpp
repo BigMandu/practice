@@ -20,49 +20,34 @@ completion의 길이는 participant의 길이보다 1 작습니다.
 #include <iostream>
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
-/*
-bool comparestring(string participant, vector<string> complete, vector<bool> &chkvec)
-{
-    vector<string>::iterator it;
-    int i = 0;
-
-    for( it = complete.begin(); it != complete.end(); it++, i++)
-    {
-        if(chkvec.at(i) == false && *it == participant)
-        {
-            chkvec.at(i) = true;
-            return true;
-        }
-    }
-    return false;
-}
-*/
-
 string solution(vector<string> participant, vector<string> completion) {
     string answer = "";
-    vector<bool> chkvec;
-    chkvec.assign(completion.size(),false);
-    bool bSuccess = false;
-    int i = 0;
-
-    vector<string>::iterator it;
-    for(it = participant.begin(); it != participant.end(); it++)
+    unordered_map<string, int> hashmap;
+    int i=0;
+    for(string x : participant)
     {
-        if(chkvec.at(i)==false && *it == completion[i])
+        hashmap[x]++;
+        i++;
+    }
+
+    for(string x : completion)
+    {
+        hashmap[x]--;
+    }
+
+    for(auto check : hashmap)
+    {
+        if(check.second > 0)
         {
-            chkvec.at(i) = true;
-            i++;
-            continue;
-        }
-        else
-        {
-            answer = *it;
+            answer = check.first;
             break;
         }
-    }
+    } 
+
     
     return answer;
 }
