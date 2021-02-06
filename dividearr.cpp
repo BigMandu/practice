@@ -12,11 +12,41 @@
     [3,2,6]	        10	    [-1]
 
 */
+#include <iostream>
 
 #include <string>
 #include <vector>
 
 using namespace std;
+
+void sort(vector<int> &arr, int start, int end)
+{
+    int p, t, left, tmp;
+
+    if(start >= end) return;
+
+    p = end;
+    t = start;
+
+    for(left = start; left < end; left++)
+    {
+        if(arr[left] < arr[p])
+        {
+            tmp = arr[left];
+            arr[left] = arr[t];
+            arr[t] = tmp;
+            t++;
+        }
+    }
+    
+    tmp = arr[p];
+    arr[p] = arr[t];
+    arr[t] = tmp;
+
+    sort(arr,start, t-1);
+    sort(arr,t+1, end);
+
+}
 
 vector<int> solution(vector<int> arr, int divisor) {
     vector<int> answer;
@@ -35,8 +65,36 @@ vector<int> solution(vector<int> arr, int divisor) {
     }
     else
     {
-        
+        sort(answer, 0, answer.size()-1);
     }
 
     return answer;
+}
+
+int main()
+{
+    vector<int>inarr;
+    vector<int>sol;
+
+    int indiv = 0;
+    cout << "input arr"<<endl;
+    for(int i=0;i<100;i++)
+    {
+        int input;
+        cin >> input;
+        if(input<0) break;
+
+        inarr.push_back(input);
+    }
+
+    cout <<"input divisor : ";
+    cin >> indiv;
+
+    sol = solution(inarr, indiv);
+
+    cout <<"=========="<<endl;
+    for(int& num : sol)
+    {
+        cout << num;
+    }
 }
