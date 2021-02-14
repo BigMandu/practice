@@ -21,7 +21,7 @@ using namespace std;
 int solution(int n) {
     int answer = 0;
 
-    vector<bool>prime(n,true);
+    vector<bool>prime(n+1,true);
 
     prime[0] = prime[1] = false;
 
@@ -44,7 +44,7 @@ int solution(int n) {
         {
             answer++;
         }
-    }   
+    }
 
 
     return answer;
