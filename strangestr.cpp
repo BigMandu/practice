@@ -12,6 +12,7 @@ https://programmers.co.kr/learn/courses/30/lessons/12930
 입출력 예
 s	                return
 try hello world	    TrY HeLlO WoRlD
+012 01234 01234
 
 */
 #include <iostream>
@@ -23,6 +24,43 @@ using namespace std;
 
 string solution(string s) {
     string answer = "";
+    int el = 0;
+
+    for(char ch : s)
+    {
+        if(ch != ' ')
+        {
+            if(el == 0 || el%2 ==0)
+            {
+                if(ch >= 'a' && ch <= 'z')
+                {
+                    answer.push_back(ch-32);
+                }
+                else
+                {
+                    answer.push_back(ch);
+                }
+            }
+            else
+            {
+                if(ch >='A' && ch <= 'Z')
+                {
+                    answer.push_back(ch+32);
+                }
+                else
+                {
+                    answer.push_back(ch);
+                }
+            }
+            el++;
+        }
+        else
+        {
+            answer.push_back(' ');
+            el = 0;
+        }
+            
+    }
     return answer;
 }
 
