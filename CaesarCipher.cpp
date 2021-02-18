@@ -42,7 +42,6 @@ string solution(string s, int n)
         else shiftch = (int)ch;
         
         answer += (char)shiftch;
-       
     }
 
     return answer;
