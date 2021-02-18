@@ -22,7 +22,24 @@ using namespace std;
 vector<int> solution(int n, int m) 
 {
     vector<int> answer;
+    int gcm = 0;
+    int maximum = 0;
+    for(int i=0; i<=m; i++)
+    {
+        
+        if((int)i/n == i/n && )
+        {
+            if(maximum < i)
+            {
+                gcm = i;
+            }
+        }
 
+    }
+    
+    answer.push_back(gcm);
+
+    
     
 
     return answer;
