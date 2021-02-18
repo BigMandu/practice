@@ -6,6 +6,8 @@
 using namespace std;
 const int MAX = 300;
 
+
+//아마 빙산인듯
 typedef struct
 {
     int y, x;
@@ -35,9 +37,9 @@ void melt(void)
                     int nextY = y + moveDir[i].y;
                     int nextX = x + moveDir[i].x;
                     if (copy[nextY][nextX] == 0)
-                        cnt++; //동서남북 0인만큼 감소
+                        cnt++;  //동서남북 0인만큼 감소
                 }
-                //높이는 0 이상
+                //높이는 0이상
                 graph[y][x] = max(copy[y][x] - cnt, 0);
             }
 }
