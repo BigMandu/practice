@@ -19,23 +19,20 @@ n	m	return
 
 using namespace std;
 
+int Getgcd(int p, int q)
+{
+    if(q == 0) return p;
+    return Getgcd(q, p%q);
+    //p<q 의 처리를 하지 않은 이유
+    // p<q인 입력이 들어오는 경우, p%q = p임. 따라서 다음 재귀호출은 q,p가 되기때문이다.
+}
+
 vector<int> solution(int n, int m) 
 {
     vector<int> answer;
     int gcm = 0;
-    int maximum = 0;
-    for(int i=0; i<=m; i++)
-    {
-        
-        if((int)i/n == i/n && )
-        {
-            if(maximum < i)
-            {
-                gcm = i;
-            }
-        }
-
-    }
+    
+    gcm = Getgcd(n,m);
     
     answer.push_back(gcm);
 
