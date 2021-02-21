@@ -30,13 +30,15 @@ int Getgcd(int p, int q)
 vector<int> solution(int n, int m) 
 {
     vector<int> answer;
-    int gcm = 0;
-    
-    gcm = Getgcd(n,m);
-    
-    answer.push_back(gcm);
+    int gcd = 0;
+    int lcm = 0;
 
+    gcd = Getgcd(n,m);
     
+    lcm = n*m / gcd;
+
+    answer.push_back(gcd);
+    answer.push_back(lcm);
     
 
     return answer;
