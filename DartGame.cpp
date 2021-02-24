@@ -38,23 +38,103 @@ Single(S), Double(D), Triple(T)은 점수마다 하나씩 존재한다.
 
 #include <iostream>
 #include <string>
+#include <vector>
+#include <math.h>
 
 using namespace std;
 
+
+bool isSDT(char ch)
+{
+    if(ch == 'S' || ch == 'D' || ch == 'T')
+    {
+        return true;
+    }
+    else return false;
+}
+
+bool isAsSh(char ch)
+{
+    if(ch == '*' || ch == '#')
+    {
+        return true;
+    }
+    else return false;
+}
+
 int solution(string dartResult) 
 {
+    vector<int> vec;
     int answer = 0;
     int temp = 0;
     for(char ch : dartResult)
     {
-        if()
+        if(isSDT(ch))
+        {
+            int x = vec.back();
+            vec.pop_back();
+            if(ch == 'S') x = pow(x,1);
+            else if(ch == 'D') x = pow(x,2);
+            else if(ch == 'T') x = pow(x,3);
+            vec.push_back(x);
+        }
+        else if(isAsSh(ch))
+        {
+            if(ch == '*')
+            {
+                bool bFirst = false;
+                if(vec.size() == 1)
+                {
+                    bFirst = true;
+                }
+
+                int x = vec.back();
+                vec.pop_back();
+                if(!bFirst)
+                {
+                    int y = vec.back();
+                    vec.pop_back();
+                    y *=2;
+                    vec.push_back(y);
+                }
+                x *=2; 
+                vec.push_back(x);
+                
+            }
+            if(ch == '#')
+            {
+                int x = vec.back();
+                vec.pop_back();
+                x *=-1;
+                vec.push_back(x);
+            }
+            
+        }
+        else
+        {
+            if((int)ch-48 == 0)
+            {
+                if(vec.size() != 0 && vec.back() == 1)
+                {
+                    vec.pop_back();
+                    vec.push_back(10);
+                    continue;
+                }
+            }
+            vec.push_back(ch-48);
+        }
+    }
+
+    for(int x : vec)
+    {
+        answer += x;
     }
     return answer;
 }
 
 int main()
 {
-    string str = "1S2D*3T";
+    string str = "1D2S0T";
     int x = 0;
     x = solution(str);
     cout << x;
