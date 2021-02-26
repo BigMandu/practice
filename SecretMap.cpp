@@ -31,45 +31,38 @@ arr2	    [27 ,56, 19, 14, 14, 10]
 #include <iostream>
 #include <string>
 #include <vector>
-#include <math.h>
 
 using namespace std;
 
-string binary(int x)
+string binToStr(int n, int x)
 {
     string str;
-    while(x!=0)
+
+    while(str.size() != n)
     {
-        str = (x%2 == 0)? '#' : ' ';
+        str = ((x % 2 == 0)? ' ' : '#') +str;
         x/=2;
     }
+    
     return str;
 }
 
 vector<string> solution(int n, vector<int> arr1, vector<int> arr2) 
 {
+    vector<int> tmpstore;
     vector<string> answer;
-    vector<int> vec;
 
-    vec.resize(n);
-    answer.resize(n);
-
-    int max = pow(2,n) -1;
-    for(int i =0; i<arr1.size(); i++)
+    for(int i =0; i<n; i++)
     {
-        int x = arr1[i] + arr2[i];
-        if(x>max)
-        {
-            x = max;
-        }
-        vec.push_back(x);
+        int num = (arr1[i] | arr2[i]);
+
+        tmpstore.push_back(num);
     }
 
-    for(int x : vec)
+    for(int bit : tmpstore)
     {
-        answer.push_back(binary(x));       
+        answer.push_back(binToStr(n, bit));
     }
-
 
     return answer;
 }
@@ -82,14 +75,14 @@ int main()
     vector<int>arr2;
     vector<string>str;
 
-    n = 5;
-    arr1 = {9, 20, 28, 18, 11};
-    arr2 = {30, 1, 21, 17, 28};
+    n = 6;
+    arr1 = {46, 33, 33 ,22, 31, 50};
+    arr2 = {27 ,56, 19, 14, 14, 10};
 
     str = solution(n,arr1,arr2);
 
     for(string s : str)
     {
-        cout<<s;
+        cout<<s<<endl;
     }
 }
