@@ -14,34 +14,26 @@ budget (예산)내로 최대한 지원해 줄 수 있는 부서의 개수를 리턴.
 #include <stdio.h>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
 int solution(vector<int> d, int budget) {
     int answer = 0;
-    int max = 0;
-    int cnt = 0;
+    int sum = 0;
 
-    int tmp = 0;
+    sort(d.begin(),d.end());
 
-    for(int i = 0; i<d.size(); i++)
+
+    for(int x : d)
     {
-        tmp = d[i];
-        cnt = 1;
-        for(int j = i+1; j<d.size(); j++)
+        if(sum+x > budget)
         {
-            if(tmp+d[j] > budget) break;
-            else
-            {
-                tmp+=d[j];
-                cnt++;
-            }
+            return answer;
         }
-        max = (cnt > max)? cnt : max;
+        sum+=x;
+        answer++;
     }
-    
-    answer = max;
-
     return answer;
 }
 
@@ -50,8 +42,8 @@ int main()
     vector<int>vec;
     int budget;
 
-    vec = {2,2,3,3};
-    budget = 10;
+    vec = {1,3,2,5,4};
+    budget = 9;
 
     budget = solution(vec,budget);
     cout << budget;
