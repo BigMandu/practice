@@ -32,15 +32,122 @@ new_id	                        result
 "abcdefghijklmn.p"	            "abcdefghijklmn"
 
 */
-
+#include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
+void FirstStep(string& id)
+{
+    std::transform(id.begin(), id.end(),id.begin(), ::tolower);
+}
+
+void SecondStep(string& id)
+{
+    for(int i = 0; i<id.size(); ++i)
+    {
+       if(isalpha(id[i]) || isdigit(id[i])|| id[i] == '-' || id[i] == '_' || id[i] == '.')
+       {
+           continue;
+       }
+       else
+       {
+           id.erase(i, 1);
+           --i;
+       }
+    }
+}
+
+void ThirdStep(string& id)
+{
+    for(int i = 0; i<id.size(); ++i)
+    {
+        if(i+1 > id.size()) break;
+        if(id[i] == '.' && id[i+1] == '.')
+        {
+            id.erase(i,1);
+            --i;
+        }
+    }
+}
+
+void FourthStep(string& id)
+{
+    if(!id.empty())
+    {
+        if(id[0] == '.')
+        {
+            id.erase(0,1);
+        }
+        int ind = id.size()-1;
+        if(id[ind] == '.')
+        {
+            id.erase(ind,1);
+        }
+    }
+}
+
+void FifthStep(string& id)
+{
+    if(id.empty())
+    {
+        id.push_back('a');
+    }
+}
+
+void SixthStep(string& id)
+{
+    if(id.size() >= 15)
+    {
+        int len = id.size() - 15;
+        id.erase(15, len);
+
+        FourthStep(id);
+    }
+
+}
+
+void SeventhStep(string& id)
+{
+    if(id.size() < 3)
+    {
+        char ch = id.back();
+        while(id.size() < 3)
+        {
+            id.push_back(ch);
+        }
+    }
+}
+
 string solution(string new_id) 
 {
-    string answer = "";
+    string answer = new_id;
     
+    FirstStep(answer);
+    SecondStep(answer);
+    ThirdStep(answer);
+    FourthStep(answer);
+    FifthStep(answer);
+    SixthStep(answer);
+    SeventhStep(answer);
     return answer;
 }
+
+int main()
+{
+    string id = "abcdefghijklmn.p";
+
+    id = solution(id);
+    cout << id;
+}
+
+/*
+new_id	                        result
+"...!@BaT#*..y.abcdefghijklm"	"bat.y.abcdefghi"
+"z-+.^."	                    "z--"
+"=.="	                        "aaa"
+"123_.def"	                    "123_.def"
+"abcdefghijklmn.p"	            "abcdefghijklmn"
+*/
