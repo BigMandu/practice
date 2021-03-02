@@ -48,13 +48,13 @@ int solution(vector<vector<int>> board, vector<int> moves)
                 if(temp.size() && temp.back() == doll)
                 {
                     temp.pop_back();
-                    answer++;
+                    answer+=2;
                 }
                 else
                 {
                     temp.push_back(doll);
                 }
-                
+                board[x][moves[i]-1] = 0;
                 break;
             }
         }
