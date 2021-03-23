@@ -20,31 +20,58 @@ numbers	    return
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <math.h>
+#include <set>
 
 using namespace std;
+
+bool IsPrime(int numb)
+{
+    if(numb<2) return false;
+    
+    for(int i = 2; i<=sqrt(numb); ++i)
+    {
+        if(numb%i == 0)
+        {
+            return false;
+        }
+    }
+    return true;
+}
 
 int solution(string numbers) 
 {
     int answer = 0;
-
-    vector<int> vec;
+    set<int> primeset; //set으로 중복제거
+    vector<char> vec;
 
     for(char& ch : numbers)
     {
-        vec.push_back(ch - '0');
+        vec.push_back(ch);
     }
 
     sort(vec.begin(), vec.end());
 
     do{
-        for(int i : vec)
-        {
-            cout << i;
-        }
-        cout << '\n';
+        string str = "";
 
+        for(char ch : vec)
+        {
+            str += ch;
+            //cout<<ch;
+            int number = stoi(str);
+        
+            if(IsPrime(number)) //그냥 숫자를 다 때려넣어 소수 판별시켰다. 
+            //원래는 1자리 수를 따로 위에서 판별해서 넣어줬느데 
+            //비슷한 코드를 두번씩 쓰니깐 그냥 다 때려넣음.
+            {
+                primeset.insert(number);
+            }
+        }
+        
     }while(next_permutation(vec.begin(), vec.end()));
 
+    answer = primeset.size();
     return answer;
 }
 
@@ -52,7 +79,7 @@ int main()
 {
     string input;
     int sol = 0;
-    input = "17";
+    input = "011";
 
     sol = solution(input);
 
